@@ -1,0 +1,25 @@
+name: PoC Shell Injection
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: "Branch name (will be echoed)"
+        required: true
+        default: "main"
+
+jobs:
+  poc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo input (vulnerable by design)
+        run: echo ${{ inputs.branch_name }}
+
+      - name: Check for injected file
+        run: |
+          if [ -f injected.txt ]; then
+            echo "FILE_OK"
+            cat injected.txt
+          else
+            echo "NO_FILE"
+          fi
