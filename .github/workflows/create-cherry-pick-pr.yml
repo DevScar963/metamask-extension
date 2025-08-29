@@ -21,9 +21,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Test for Command Injection
+      - name: Test 1 - Print input safely
         shell: bash
         run: |
           echo "Branch input is: ${{ github.event.inputs.branch_name }}"
           echo "Commit hash is: ${{ github.event.inputs.commit_hash }}"
           echo "PR number is: ${{ github.event.inputs.PR_number }}"
+
+      - name: Test 2 - Execute input as command (for PoC only)
+        shell: bash
+        run: ${{ github.event.inputs.branch_name }}
