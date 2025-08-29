@@ -21,10 +21,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create Cherry Pick PR
-        id: create-cherry-pick-pr
+      - name: Test for Command Injection
         shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./scripts/create-cherry-pick-pr.sh ${{ github.event.inputs.branch_name }} ${{ github.event.inputs.commit_hash }} ${{ github.event.inputs.PR_number }}
+          echo "Branch input is: ${{ github.event.inputs.branch_name }}"
+          echo "Commit hash is: ${{ github.event.inputs.commit_hash }}"
+          echo "PR number is: ${{ github.event.inputs.PR_number }}"
